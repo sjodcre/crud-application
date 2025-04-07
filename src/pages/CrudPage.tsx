@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { message, result, dryrun, createDataItemSigner } from "@permaweb/aoconnect";
 import { processId, TAGS } from "../shared/config/aoConfig";
+import { useNavigate } from 'react-router-dom';
+
 
 type Post = {
     id: number;
@@ -13,13 +15,17 @@ export default function CrudPage() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         fetchPosts();
     }, []);
 
     const handleUpdateRedirect = (id: number) => {
-        window.location.href = `/edit/${id}`; // go to update page
+        // window.location.href = `/edit/${id}`; // go to update page
+        navigate(`/edit/${id}`);
+
     };
 
     const handleDeletePost = async (id: number) => {
